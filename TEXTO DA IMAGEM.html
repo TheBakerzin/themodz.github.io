@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login com Google</title>
+  <!-- Adicione a biblioteca do Google Sign-In -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <h1>Login com Google</h1>
+  <div id="g_id_onload"
+       data-client_id="SEU_CLIENT_ID"
+       data-callback="handleCredentialResponse">
+  </div>
+  <div class="g_id_signin"
+       data-type="standard"
+       data-size="large"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-shape="rectangular"
+       data-logo_alignment="left">
+  </div>
+
+  <p id="status"></p>
+
+  <script>
+    // Função para lidar com a resposta de autenticação
+    function handleCredentialResponse(response) {
+      // Decodifica o token JWT para obter os dados do usuário
+      const responsePayload = JSON.parse(atob(response.credential.split('.')[1]));
+
+      // Exibe os dados do usuário
+      document.getElementById('status').textContent = `Bem-vindo, ${responsePayload.name} (${responsePayload.email})!`;
+    }
+  </script>
+</body>
+</html>
